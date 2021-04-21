@@ -1,0 +1,20 @@
+{
+  "name": "proyecto-pnl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vocabulary-creation.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Angred19/natural-language-processing.git"
+  },
+  "author": "Angel Tornero Hernandez <alu0101224084@ull.edu.es> (https://github.com/alu0101224084)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Angred19/natural-language-processing/issues"
+  },
+  "homepage": "https://github.com/Angred19/natural-language-processing#readme"
+}
