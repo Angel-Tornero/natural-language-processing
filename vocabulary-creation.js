@@ -16,7 +16,7 @@ import readline from 'readline';
 
 const FILE_PATH = './ecom-train.csv';
 const REGEX_ALPHA = /[^a-zá-ú]/gi;
-const REGEX_LINKS = /^((?!\.com)(?!\.net)(?!\.org)(?!\.io)(?!<\/).)*$/gm;
+const REGEX_LINKS = /^((?!\.com)(?!\.net)(?!\.org)(?!\.io)(?!<\/)(?!\.in)(?!\.co)(?!\.eu).)*$/gm;
 
 const STOP_WORDS = {
   'able': '',
@@ -138,6 +138,19 @@ const STOP_WORDS = {
   'your': ''
 }
 
+let HCategory = {};
+let BCategory = {};
+let CCategory = {};
+let ECategory = {};
+
+let counterCategories = [0, 0, 0, 0];
+let counterDocuments = {
+  'H': 0,
+  'B': 0,
+  'C': 0,
+  'E': 0
+};
+
 const extractWords = async function() {
   let fileWords = [];
   const fileStream = fs.createReadStream(FILE_PATH);
@@ -147,6 +160,8 @@ const extractWords = async function() {
   });
   for await (const line of rl) {
     let wordsArray = [];
+    const category = line[0];
+    counterDocuments[category]++;
     const description = line.substr(line.indexOf(',') + 1);
     let filterLinks = description.split(' ');
     for (let i = 0; i < filterLinks.length; i++) {
@@ -161,6 +176,41 @@ const extractWords = async function() {
       const cleanWord = wordsArray[i].toLowerCase().replace(REGEX_ALPHA, '');
       if (STOP_WORDS[cleanWord] !== undefined) continue;
       filteredArray.push(cleanWord);
+      switch (category) {
+        case 'H':
+          if (HCategory[cleanWord] === undefined) {
+            HCategory[cleanWord] = 1;
+          } else {
+            HCategory[cleanWord]++;
+          }
+          counterCategories[0]++;
+          break;
+        case 'B':
+          if (BCategory[cleanWord] === undefined) {
+            BCategory[cleanWord] = 1;
+          } else {
+            BCategory[cleanWord]++;
+          }
+          counterCategories[1]++;
+          break;
+        case 'C':
+          if (CCategory[cleanWord] === undefined) {
+            CCategory[cleanWord] = 1;
+          } else {
+            CCategory[cleanWord]++;
+          }
+          counterCategories[2]++;
+          break;
+        case 'E':
+          if (ECategory[cleanWord] === undefined) {
+            ECategory[cleanWord] = 1;
+          } else {
+            ECategory[cleanWord]++;
+          }
+          counterCategories[3]++;
+          break;
+      }
+      
     }
     fileWords.push.apply(fileWords, filteredArray);
   }
@@ -177,9 +227,18 @@ const extractWords = async function() {
     count[fileWords[i]] = 1;
     lastWord = fileWords[i];
   }
-  console.log(`Numero de palabras: ${nonRepeatedWords.length}`);
+  /*console.log(`Numero de palabras: ${nonRepeatedWords.length}`);
   for (let i = 0; i < nonRepeatedWords.length; i++) {
     console.log(nonRepeatedWords[i]);
+  }*/
+  console.log(`Numero de documentos del corpus: ${counterDocuments['E']}`);
+  console.log(`Numero de palabras del corpus: ${counterCategories[3]}`);
+  for (let i = 0; i < nonRepeatedWords.length; i++) {
+    if (ECategory[nonRepeatedWords[i]] === undefined) {
+      ECategory[nonRepeatedWords[i]] = 0;
+    }
+    console.log(`Palabra:${nonRepeatedWords[i]}\tFrec:${ECategory[nonRepeatedWords[i]]}\tLogProb:${(ECategory[nonRepeatedWords[i]] + 1) / (counterCategories[3] + nonRepeatedWords.length)}`)
+
   }
 }
 

@@ -1,4 +1,4 @@
-Numero de palabras: 55256
+Numero de palabras: 55232
 aa
 aaa
 aaabattery
@@ -1281,7 +1281,6 @@ algorithms
 ali
 alia
 aliant
-alias
 alibaba
 alibis
 alice
@@ -3112,7 +3111,6 @@ audigy
 audio
 audiobook
 audiobooks
-audiobooksreview
 audiobuilt
 audiocentric
 audioconvenient
@@ -4560,7 +4558,6 @@ bespoke
 bessel
 best
 bestelling
-bestest
 bestiary
 besties
 bestman
@@ -5062,7 +5059,6 @@ blackhead
 blackheads
 blackie
 blackifp
-blackinkbooks
 blacklength
 blacklight
 blacklisting
@@ -5223,7 +5219,6 @@ bloggers
 blogging
 bloggingheads
 blogs
-blogspot
 blom
 blond
 blonde
@@ -5889,7 +5884,6 @@ brands
 brandsafran
 brandsbrowse
 brandsimpex
-brandtextbin
 brandthe
 brandtimex
 brandy
@@ -11418,11 +11412,9 @@ custom
 customarily
 customary
 customer
-customercare
 customeron
 customers
 customersif
-customersupport
 customisable
 customisation
 customisations
@@ -11680,7 +11672,6 @@ dao
 dap
 dapm
 dapper
-daps
 dar
 dara
 darbar
@@ -14777,7 +14768,6 @@ ebola
 ebony
 ebook
 ebooks
-ebpapvb
 ebprotection
 ebu
 ebullient
@@ -19598,7 +19588,6 @@ genuinely
 genuinity
 geo
 geoff
-geoffkersey
 geoffrey
 geographer
 geographers
@@ -19754,7 +19743,6 @@ gift
 gifta
 giftable
 giftbox
-giftcardsindia
 gifted
 giftgift
 gifties
@@ -23007,7 +22995,6 @@ ia
 iaa
 iadls
 iaf
-iagroup
 iain
 iamcr
 ian
@@ -23019,7 +23006,6 @@ ib
 ibadan
 iball
 ibarra
-ibbc
 ibell
 ibellmc
 ibf
@@ -24242,7 +24228,6 @@ insensibly
 insensitive
 inseparable
 insert
-insertbefore
 inserted
 inserting
 insertion
@@ -32736,7 +32721,6 @@ neel
 neelakandan
 neelakantan
 neelam
-neelamkumar
 neelima
 neem
 neer
@@ -32851,7 +32835,6 @@ netgear
 netgen
 netherlands
 netpart
-netribution
 nets
 netscape
 nett
@@ -33422,7 +33405,6 @@ nosepiece
 noses
 nosesnote
 nosing
-noss
 nossupport
 nostalgia
 nostalgic
@@ -34503,7 +34485,6 @@ originate
 originated
 originating
 originator
-origingames
 origins
 orignal
 orina
@@ -35391,7 +35372,6 @@ parent
 parental
 parenthood
 parenting
-parentnode
 parents
 pareo
 pares
@@ -41235,7 +41215,6 @@ rick
 rickert
 rickettsial
 ricki
-rickriordan
 ricks
 rickshaw
 rickshaws
@@ -48997,7 +48976,6 @@ theaudio
 theb
 thebestselling
 thebutton
-thecitizen
 thecoolio
 thed
 thediary
@@ -51861,7 +51839,6 @@ utah
 utensil
 utensils
 uterus
-utf
 uthmaan
 uti
 utili
@@ -54693,7 +54670,6 @@ yarmouth
 yarn
 yarnell
 yarns
-yarnsandfabrics
 yarrington
 yartn
 yary
