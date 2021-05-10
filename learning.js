@@ -227,18 +227,18 @@
      count[fileWords[i]] = 1;
      lastWord = fileWords[i];
    }
-   console.log(`Numero de documentos del corpus: ${counterDocuments['E']}`);
-   console.log(`Numero de palabras del corpus: ${counterCategories[3]}`);
+   console.log(`Numero de documentos del corpus: ${counterDocuments['C']}`);
+   console.log(`Numero de palabras del corpus: ${counterCategories[2]}`);
 
-   ECategory['UNK'] = 0;
+   CCategory['UNK'] = 0;
    for (let i = 0; i < nonRepeatedWords.length; i++) {
-     if (ECategory[nonRepeatedWords[i]] === undefined) {
-      ECategory['UNK']++;
+     if (CCategory[nonRepeatedWords[i]] === undefined) {
+      CCategory['UNK']++;
        continue;
      }
-     console.log(`Palabra:${nonRepeatedWords[i]}\tFrec:${ECategory[nonRepeatedWords[i]]}\tLogProb:${Math.log((ECategory[nonRepeatedWords[i]] + 1) / (counterCategories[3] + nonRepeatedWords.length))}`);
+     console.log(`Palabra:${nonRepeatedWords[i]}\tFrec:${CCategory[nonRepeatedWords[i]]}\tLogProb:${Math.log((CCategory[nonRepeatedWords[i]] + 1) / (counterCategories[2] + nonRepeatedWords.length + 1))}`);
    }
-   console.log(`Palabra:UNK\tFrec:${ECategory['UNK']}\tLogProb:${Math.log((ECategory['UNK'] + 1) / (counterCategories[3] + nonRepeatedWords.length))}`)
+   console.log(`Palabra:UNK\tFrec:${CCategory['UNK']}\tLogProb:${Math.log(1 / (counterCategories[2] + nonRepeatedWords.length + 1))}`)
  }
  
  extractWords();

@@ -1,5 +1,141 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Inteligencia Artificial Avanzada
+ * 
+ * @author Ángel Tornero Hernández
+ * @date 10 May 2021
+ * @brief Clasification
+ * @link https://campusingenieriaytecnologia.ull.es/mod/resource/view.php?id=287381
+ *
+ */
+
 import fs from 'fs';
 import readline from 'readline';
+
+const REGEX_ALPHA = /[^a-zá-ú]/gi;
+const REGEX_LINKS = /^((?!\.com)(?!\.net)(?!\.org)(?!\.io)(?!<\/)(?!\.in)(?!\.co)(?!\.eu).)*$/gm;
+
+const STOP_WORDS = {
+  'able': '',
+  'about': '',
+  'across': '',
+  'after': '',
+  'all': '',
+  'almost': '',
+  'also': '',
+  'am': '',
+  'among': '',
+  'an': '',
+  'and': '',
+  'any': '',
+  'are': '',
+  'as': '',
+  'at': '',
+  'be': '',
+  'because': '',
+  'been': '',
+  'but': '',
+  'by': '',
+  'can': '',
+  'cannot': '',
+  'could': '',
+  'dear': '',
+  'did': '',
+  'do': '',
+  'does': '',
+  'either': '',
+  'else': '',
+  'ever': '',
+  'every': '',
+  'for': '',
+  'from': '',
+  'get': '',
+  'got': '',
+  'had': '',
+  'has': '',
+  'have': '',
+  'he': '',
+  'her': '',
+  'hers': '',
+  'him': '',
+  'his': '',
+  'how': '',
+  'however': '',
+  'if': '',
+  'in': '',
+  'into': '',
+  'is': '',
+  'it': '',
+  'its': '',
+  'just': '',
+  'least': '',
+  'let': '',
+  'like': '',
+  'likely': '',
+  'may': '',
+  'me': '',
+  'might': '',
+  'most': '',
+  'must': '',
+  'my': '',
+  'neither': '',
+  'no': '',
+  'nor': '',
+  'not': '',
+  'of': '',
+  'off': '',
+  'often': '',
+  'on': '',
+  'only': '',
+  'or': '',
+  'other': '',
+  'our': '',
+  'own': '',
+  'rather': '',
+  'said': '',
+  'say': '',
+  'says': '',
+  'she': '',
+  'should': '',
+  'since': '',
+  'so': '',
+  'some': '',
+  'than': '',
+  'that': '',
+  'the': '',
+  'their': '',
+  'them': '',
+  'then': '',
+  'there': '',
+  'these': '',
+  'they': '',
+  'this': '',
+  'tis': '',
+  'to': '',
+  'too': '',
+  'twas': '',
+  'us': '',
+  'wants': '',
+  'was': '',
+  'we': '',
+  'were': '',
+  'what': '',
+  'when': '',
+  'where': '',
+  'which': '',
+  'while': '',
+  'who': '',
+  'whom': '',
+  'why': '',
+  'will': '',
+  'with': '',
+  'would': '',
+  'yet': '',
+  'you': '',
+  'your': ''
+}
 
 const main = async function() {
   let HCategory = {};
@@ -8,8 +144,8 @@ const main = async function() {
   let ECategory = {};
 
   //file reading H
-  const fileStream = fs.createReadStream('./aprendizaje/aprendizajeH.txt');
-  const rl = readline.createInterface({
+  let fileStream = fs.createReadStream('./aprendizaje/aprendizajeH.txt');
+  let rl = readline.createInterface({
     input: fileStream,
     crlfDelay: Infinity
   });
@@ -17,7 +153,7 @@ const main = async function() {
     if (line[0] !== 'P') continue;
     const data = line.split('\t');
     const word = data[0].substr(data[0].indexOf(':') + 1);
-    const prob = data[2].substr(data[2].indexOf(':') + 1);
+    const prob = Number(data[2].substr(data[2].indexOf(':') + 1));
     HCategory[word] = prob;
   }
 
@@ -29,9 +165,9 @@ const main = async function() {
   });
   for await (const line of rl) {
     if (line[0] !== 'P') continue;
-    const data = line.split(' ');
+    const data = line.split('\t');
     const word = data[0].substr(data[0].indexOf(':') + 1);
-    const prob = data[2].substr(data[2].indexOf(':') + 1);
+    const prob = Number(data[2].substr(data[2].indexOf(':') + 1));
     BCategory[word] = prob;
   }
 
@@ -43,9 +179,9 @@ const main = async function() {
   });
   for await (const line of rl) {
     if (line[0] !== 'P') continue;
-    const data = line.split(' ');
+    const data = line.split('\t');
     const word = data[0].substr(data[0].indexOf(':') + 1);
-    const prob = data[2].substr(data[2].indexOf(':') + 1);
+    const prob = Number(data[2].substr(data[2].indexOf(':') + 1));
     CCategory[word] = prob;
   }
 
@@ -57,9 +193,9 @@ const main = async function() {
   });
   for await (const line of rl) {
     if (line[0] !== 'P') continue;
-    const data = line.split(' ');
+    const data = line.split('\t');
     const word = data[0].substr(data[0].indexOf(':') + 1);
-    const prob = data[2].substr(data[2].indexOf(':') + 1);
+    const prob = Number(data[2].substr(data[2].indexOf(':') + 1));
     ECategory[word] = prob;
   }
   
@@ -87,6 +223,49 @@ const main = async function() {
       filteredArray.push(cleanWord);
     }
     //clasificacion
+    let probabilities = {
+      'H': 0,
+      'B': 0,
+      'C': 0,
+      'E': 0
+    }
+    for (let i = 0; i < filteredArray.length; i++) {
+      if (!HCategory[filteredArray[i]]) {
+        probabilities['H'] += HCategory['UNK'];
+      } else {
+        probabilities['H'] += HCategory[filteredArray[i]];
+      }
+    }
+    for (let i = 0; i < filteredArray.length; i++) {
+      if (!BCategory[filteredArray[i]]) {
+        probabilities['B'] += BCategory['UNK'];
+      } else {
+        probabilities['B'] += BCategory[filteredArray[i]];
+      }
+    }
+    for (let i = 0; i < filteredArray.length; i++) {
+      if (!CCategory[filteredArray[i]]) {
+        probabilities['C'] += CCategory['UNK'];
+      } else {
+        probabilities['C'] += CCategory[filteredArray[i]];
+      }
+    }
+    for (let i = 0; i < filteredArray.length; i++) {
+      if (!ECategory[filteredArray[i]]) {
+        probabilities['E'] += ECategory['UNK'];
+      } else {
+        probabilities['E'] += ECategory[filteredArray[i]];
+      }
+    }
+
+    const probabilitiesArray = Object.entries(probabilities);
+    let greater = probabilitiesArray[0];
+    for (let i = 1; i < probabilitiesArray.length; i++) {
+      if (probabilitiesArray[i][1] > greater[1]) {
+        greater = probabilitiesArray[i];
+      }
+    }
+    console.log(greater);
   }
 }
 
