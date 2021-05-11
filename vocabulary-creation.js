@@ -177,10 +177,11 @@ const extractWords = async function() {
     count[fileWords[i]] = 1;
     lastWord = fileWords[i];
   }
-  console.log(`Numero de palabras: ${nonRepeatedWords.length}`);
+  let string = `Numero de palabras: ${nonRepeatedWords.length}\n`;
   for (let i = 0; i < nonRepeatedWords.length; i++) {
-    console.log(nonRepeatedWords[i]);
+    string += nonRepeatedWords[i] + '\n';
   }
+  fs.writeFileSync('./vocabulario.txt', string);
 }
 
 extractWords();

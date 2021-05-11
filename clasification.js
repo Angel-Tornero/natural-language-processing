@@ -199,14 +199,19 @@ const main = async function() {
     ECategory[word] = prob;
   }
   
-  let output = '';
+  let clasificacionString = '';
+  let resumenString = `codigo:\n`;
   fileStream = fs.createReadStream(process.argv[2]);
   rl = readline.createInterface({
     input: fileStream,
     crlfDelay: Infinity
   });
+  let total = 0;
+  let successes = 0;
   for await (const line of rl) {
+    total++;
     let wordsArray = [];
+    const category = line[0];
     const description = line.substr(line.indexOf(',') + 1);
     let filterLinks = description.split(' ');
     for (let i = 0; i < filterLinks.length; i++) {
@@ -257,7 +262,6 @@ const main = async function() {
         probabilities['E'] += ECategory[filteredArray[i]];
       }
     }
-
     const probabilitiesArray = Object.entries(probabilities);
     let greater = probabilitiesArray[0];
     for (let i = 1; i < probabilitiesArray.length; i++) {
@@ -265,8 +269,17 @@ const main = async function() {
         greater = probabilitiesArray[i];
       }
     }
-    console.log(greater);
+    if (greater[0] === category) {
+      successes++;
+    }
+    clasificacionString += description + `,${probabilities['H'].toFixed(2)},${probabilities['B'].toFixed(2)},${probabilities['C'].toFixed(2)},${probabilities['E'].toFixed(2)},${greater[0]}\n`;
+    resumenString += greater[0] + ' es la clase en la que se clasifica la descripción.\n';
   }
+  console.log(`Descripciones totales: ${total}`);
+  console.log(`Descripciones clasificadas correctamente: ${successes}`);
+  console.log(`Precisión: ${(successes / total) * 100} %`);
+  fs.writeFileSync('./clasificacion_alu0101224084.csv', clasificacionString);
+  fs.writeFileSync('./resumen_alu0101224084.csv', resumenString);
 }
 
 main();

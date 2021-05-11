@@ -227,19 +227,70 @@
      count[fileWords[i]] = 1;
      lastWord = fileWords[i];
    }
-   console.log(`Numero de documentos del corpus: ${counterDocuments['C']}`);
-   console.log(`Numero de palabras del corpus: ${counterCategories[2]}`);
 
-   CCategory['UNK'] = 0;
-   for (let i = 0; i < nonRepeatedWords.length; i++) {
-     if (CCategory[nonRepeatedWords[i]] === undefined) {
-      CCategory['UNK']++;
-       continue;
-     }
-     console.log(`Palabra:${nonRepeatedWords[i]}\tFrec:${CCategory[nonRepeatedWords[i]]}\tLogProb:${Math.log((CCategory[nonRepeatedWords[i]] + 1) / (counterCategories[2] + nonRepeatedWords.length + 1))}`);
-   }
-   console.log(`Palabra:UNK\tFrec:${CCategory['UNK']}\tLogProb:${Math.log(1 / (counterCategories[2] + nonRepeatedWords.length + 1))}`)
- }
+   //Categoria H
+  let string = `Numero de documentos del corpus: ${counterDocuments['H']}\n`;
+  string += `Numero de palabras del corpus: ${counterCategories[0]}\n`;
+
+  HCategory['UNK'] = 0;
+  for (let i = 0; i < nonRepeatedWords.length; i++) {
+    if (HCategory[nonRepeatedWords[i]] === undefined) {
+      HCategory['UNK']++;
+      continue;
+    }
+    string += `Palabra:${nonRepeatedWords[i]}\tFrec:${HCategory[nonRepeatedWords[i]]}\tLogProb:${Math.log((HCategory[nonRepeatedWords[i]] + 1) / (counterCategories[0] + nonRepeatedWords.length + 1))}\n`;
+  }
+  string += `Palabra:UNK\tFrec:${HCategory['UNK']}\tLogProb:${Math.log(1 / (counterCategories[0] + nonRepeatedWords.length + 1))}\n`;
+  fs.writeFileSync('./aprendizaje/aprendizajeH.txt', string);
+
+  //Categoria B
+
+  string = `Numero de documentos del corpus: ${counterDocuments['B']}\n`;
+  string += `Numero de palabras del corpus: ${counterCategories[1]}\n`;
+
+  BCategory['UNK'] = 0;
+  for (let i = 0; i < nonRepeatedWords.length; i++) {
+    if (BCategory[nonRepeatedWords[i]] === undefined) {
+      BCategory['UNK']++;
+      continue;
+    }
+    string += `Palabra:${nonRepeatedWords[i]}\tFrec:${BCategory[nonRepeatedWords[i]]}\tLogProb:${Math.log((BCategory[nonRepeatedWords[i]] + 1) / (counterCategories[1] + nonRepeatedWords.length + 1))}\n`;
+  }
+  string += `Palabra:UNK\tFrec:${BCategory['UNK']}\tLogProb:${Math.log(1 / (counterCategories[1] + nonRepeatedWords.length + 1))}\n`;
+  fs.writeFileSync('./aprendizaje/aprendizajeB.txt', string);
+
+  //Categoria C
+
+  string = `Numero de documentos del corpus: ${counterDocuments['C']}\n`;
+  string += `Numero de palabras del corpus: ${counterCategories[2]}\n`;
+
+  CCategory['UNK'] = 0;
+  for (let i = 0; i < nonRepeatedWords.length; i++) {
+    if (CCategory[nonRepeatedWords[i]] === undefined) {
+    CCategory['UNK']++;
+      continue;
+    }
+    string += `Palabra:${nonRepeatedWords[i]}\tFrec:${CCategory[nonRepeatedWords[i]]}\tLogProb:${Math.log((CCategory[nonRepeatedWords[i]] + 1) / (counterCategories[2] + nonRepeatedWords.length + 1))}\n`;
+  }
+  string += `Palabra:UNK\tFrec:${CCategory['UNK']}\tLogProb:${Math.log(1 / (counterCategories[2] + nonRepeatedWords.length + 1))}\n`;
+  fs.writeFileSync('./aprendizaje/aprendizajeC.txt', string);
+
+  //Categoria E
+
+  string = `Numero de documentos del corpus: ${counterDocuments['E']}\n`;
+  string += `Numero de palabras del corpus: ${counterCategories[3]}\n`;
+
+  ECategory['UNK'] = 0;
+  for (let i = 0; i < nonRepeatedWords.length; i++) {
+    if (ECategory[nonRepeatedWords[i]] === undefined) {
+      ECategory['UNK']++;
+      continue;
+    }
+    string += `Palabra:${nonRepeatedWords[i]}\tFrec:${ECategory[nonRepeatedWords[i]]}\tLogProb:${Math.log((ECategory[nonRepeatedWords[i]] + 1) / (counterCategories[3] + nonRepeatedWords.length + 1))}\n`;
+  }
+  string += `Palabra:UNK\tFrec:${ECategory['UNK']}\tLogProb:${Math.log(1 / (counterCategories[3] + nonRepeatedWords.length + 1))}\n`;
+  fs.writeFileSync('./aprendizaje/aprendizajeE.txt', string);
+}
  
  extractWords();
  
